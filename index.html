@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Flyper : projets web, Minecraft, gaming et nouvelles technologies.">
+  <meta name="theme-color" content="#0b1020">
+  <title>Flyper</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <style>
+    :root{color-scheme:dark;--fond:#0b1020;--carte:#131b30;--texte:#f2f5fb;--secondaire:#a4b1c8;--bleu:#4d8dff;--rouge:#d93652;--violet:var(--bleu);--cyan:var(--rouge);--bordure:rgba(160,181,222,.18);--jaune:#f4c84c;--rayon:8px;--grille:rgba(77,141,255,.055);--lueur:rgba(77,141,255,.11);--entete:rgba(11,16,32,.95);--ombre:rgba(0,0,0,.32);--icone-fond:#1c2944}
+    :root[data-theme="light"]{color-scheme:light;--fond:#eef3fc;--carte:#fbfcff;--texte:#182b49;--secondaire:#586981;--bleu:#245fc8;--rouge:#b5253d;--violet:var(--bleu);--cyan:var(--rouge);--bordure:rgba(30,57,100,.18);--jaune:#b98215;--grille:rgba(36,95,200,.045);--lueur:rgba(36,95,200,.07);--entete:rgba(238,243,252,.95);--ombre:rgba(24,43,73,.13);--icone-fond:#e3ebf8}
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;scroll-padding-top:100px}
+    body{min-height:100vh;overflow-x:hidden;background-color:var(--fond);background-image:linear-gradient(var(--grille) 1px,transparent 1px),linear-gradient(90deg,var(--grille) 1px,transparent 1px),radial-gradient(ellipse at 18% 0%,var(--lueur),transparent 48%);background-size:32px 32px,32px 32px,auto;color:var(--texte);font-family:"Trebuchet MS",Verdana,sans-serif;line-height:1.7;transition:background-color .25s,color .25s}
+    body.menu-ouvert{overflow:hidden} a{color:inherit;text-decoration:none}button,input{font:inherit}button,a{-webkit-tap-highlight-color:transparent}a:focus-visible,button:focus-visible{outline:2px solid var(--rouge);outline-offset:5px}::selection{color:var(--fond);background:var(--rouge)}
+    .conteneur{width:min(1120px,calc(100% - 40px));margin-inline:auto}.fond-effets{display:none}
+    .entete{position:sticky;top:0;z-index:100;background:var(--entete);border-bottom:1px solid transparent;transition:border-color .25s,background-color .25s}.entete.defile{border-bottom-color:var(--bordure)}.barre-navigation{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:25px}
+    .logo{display:inline-flex;align-items:center;gap:11px;font-size:1.45rem;font-weight:850}.logo-icone{display:block;flex:0 0 42px;width:42px;height:42px;background:none;border:0;box-shadow:none}.logo-icone img{display:block;width:100%;height:100%;object-fit:contain;background:none}.logo-icone.sans-image{display:grid;place-items:center;border-radius:8px;color:#fff;font-weight:850;background:var(--violet)}.logo-icone.sans-image::before{content:"F"}.logo-texte{color:var(--texte)}
+    .navigation{display:flex;align-items:center;gap:25px}.navigation a{color:var(--secondaire);font-size:.94rem;transition:color .2s}.navigation a:hover{color:var(--bleu)}.navigation .lien-contact{padding:9px 15px;color:var(--texte);border:1px solid var(--bordure);border-radius:8px}.navigation .lien-contact:hover{border-color:var(--rouge)}.actions-navigation{display:flex;align-items:center;gap:10px}
+    .bouton-theme{display:grid;place-items:center;flex:0 0 44px;width:44px;height:44px;border:1px solid var(--bordure);border-radius:8px;color:var(--bleu);background:var(--carte);cursor:pointer;transition:background-color .2s,border-color .2s,color .2s}.bouton-theme:hover{border-color:var(--bleu);background:var(--icone-fond)}.bouton-theme i{font-size:1rem}
+    .bouton-menu{display:none;width:44px;height:44px;padding:10px;border:1px solid var(--bordure);border-radius:8px;color:var(--texte);background:var(--carte);cursor:pointer}.bouton-menu span{display:block;height:2px;margin:5px 0;background:currentColor;border-radius:2px;transition:transform .2s,opacity .2s}.bouton-menu[aria-expanded=true] span:first-child{transform:translateY(7px) rotate(45deg)}.bouton-menu[aria-expanded=true] span:nth-child(2){opacity:0}.bouton-menu[aria-expanded=true] span:last-child{transform:translateY(-7px) rotate(-45deg)}
+    .hero{min-height:600px;display:flex;align-items:center;padding-block:100px 115px}.hero-contenu{max-width:800px}.surtitre{display:inline-flex;align-items:center;gap:10px;margin-bottom:22px;padding:5px 0;color:var(--rouge);font-size:.78rem;font-weight:800;letter-spacing:1.6px}.point-lumineux{width:8px;height:8px;border-radius:50%;background:var(--rouge)}
+    h1{max-width:760px;margin-bottom:20px;font-size:clamp(3rem,8vw,6.4rem);line-height:1.05;letter-spacing:0}.texte-degrade{color:var(--bleu)}.hero-description{max-width:650px;color:var(--secondaire);font-size:1.15rem}.hero-actions{display:flex;flex-wrap:wrap;gap:13px;margin-top:32px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:48px;padding:12px 19px;border:1px solid transparent;border-radius:7px;font-weight:750;cursor:pointer;transition:transform .2s,box-shadow .2s,border-color .2s}.btn:hover{transform:translateY(-2px)}.btn-primary{color:#fff;background:var(--rouge);box-shadow:4px 4px 0 var(--bleu)}.btn-primary:hover{box-shadow:2px 2px 0 var(--bleu)}.btn-secondaire{color:var(--texte);border-color:var(--bordure);background:var(--carte)}.btn-secondaire:hover{border-color:var(--bleu)}.petite-note{margin-top:25px;color:var(--secondaire);font-size:.88rem}.petite-note i{color:var(--jaune);margin-right:4px}
+    section{padding-block:75px}.entete-section{margin-bottom:32px}.etiquette-section{margin-bottom:8px;color:var(--rouge);font-size:.78rem;font-weight:800;letter-spacing:1.8px;text-transform:uppercase}h2{font-size:clamp(2rem,5vw,3rem);line-height:1.2;letter-spacing:-1.3px}.description-section{max-width:650px;margin-top:12px;color:var(--secondaire)}.grille{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:19px}
+    .carte{position:relative;min-width:0;padding:25px;overflow:hidden;border:1px solid var(--bordure);border-radius:var(--rayon);background:var(--carte);box-shadow:3px 3px 0 var(--ombre);transition:transform .2s,border-color .2s,box-shadow .2s}.carte:hover{transform:translate(-2px,-2px);border-color:var(--bleu);box-shadow:6px 6px 0 var(--ombre)}.carte-icone{display:grid;place-items:center;width:48px;height:48px;margin-bottom:18px;border:1px solid var(--bordure);border-radius:8px;background:var(--icone-fond);font-size:1.3rem;color:var(--bleu)}.carte h3{margin-bottom:9px;font-size:1.15rem}.carte p{color:var(--secondaire);font-size:.94rem}.etiquettes{display:flex;flex-wrap:wrap;gap:7px;margin-top:18px}.etiquette-tech{padding:4px 9px;border:1px solid var(--bordure);border-radius:4px;color:var(--texte);background:var(--fond);font-size:.75rem}
+    
+    
+    .dialogue-projet{width:min(620px,calc(100% - 28px));max-width:none;max-height:min(85vh,760px);margin:auto;padding:0;overflow:auto;color:var(--texte);border:1px solid var(--bordure);border-radius:8px;background:var(--fond);box-shadow:8px 8px 0 var(--ombre)}
+    .dialogue-projet::backdrop{background:rgba(0,0,0,.72);animation:fondu-dialogue .18s ease-out}
+    .dialogue-projet[open]{animation:entree-dialogue .24s cubic-bezier(.2,.8,.2,1)}
+    .dialogue-contenu{position:relative;padding:clamp(25px,5vw,38px);overflow:hidden}
+    .dialogue-contenu::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:var(--rouge)}
+    .dialogue-entete{display:flex;align-items:center;gap:16px;padding-right:35px;margin-bottom:24px}
+    .dialogue-icone{display:grid;place-items:center;flex:0 0 62px;width:62px;height:62px;border:1px solid var(--bordure);border-radius:8px;background:var(--icone-fond);font-size:1.7rem;color:var(--bleu)}
+    .dialogue-contenu h2{margin:4px 0 0;font-size:clamp(1.7rem,5vw,2.3rem);overflow-wrap:anywhere}
+    .dialogue-contenu>p:not(.etiquette-section){margin-top:13px;color:var(--secondaire)}
+    .dialogue-contenu strong{color:var(--rouge)}
+    .dialogue-contenu > .fermer-dialogue{position:absolute;top:18px;right:18px;display:grid;place-items:center;width:38px;height:38px;padding:0;border:1px solid var(--bordure);border-radius:8px;color:var(--secondaire);background:var(--carte);cursor:pointer;transition:color .2s,border-color .2s,background .2s}
+    .fermer-dialogue:hover{color:var(--texte);border-color:var(--rouge);background:var(--icone-fond)}
+    .dialogue-separateur{height:1px;margin:22px 0;background:var(--bordure)}
+    .dialogue-liste{display:grid;gap:10px;margin-top:18px}
+    .dialogue-ligne{display:flex;align-items:flex-start;gap:11px;padding:12px 14px;border:1px solid var(--bordure);border-radius:6px;background:var(--carte);color:var(--secondaire);font-size:.92rem}
+    .dialogue-ligne span:first-child{flex:0 0 20px;width:20px;margin-top:3px;text-align:center;color:var(--bleu)}
+    .dialogue-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+    @keyframes entree-dialogue{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+    @keyframes fondu-dialogue{from{opacity:0}to{opacity:1}}
+
+    .terminal{overflow:hidden;border:1px solid var(--bordure);border-radius:var(--rayon);background:#101a2d;color:#f2f5fb}.terminal-barre{display:flex;align-items:center;gap:7px;padding:14px 18px;border-bottom:1px solid rgba(242,245,251,.16);background:rgba(255,255,255,.04)}.terminal-point{width:9px;height:9px;border-radius:50%;background:var(--rouge)}.terminal-point:nth-child(2){background:var(--jaune)}.terminal-point:nth-child(3){background:var(--bleu)}.terminal-titre{margin-left:7px;color:#a4b1c8;font-size:.82rem}.terminal-corps{padding:22px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9rem}.terminal-ligne{margin-bottom:10px;overflow-wrap:anywhere}.terminal-prompt{color:var(--rouge)}.terminal-sortie{margin-bottom:15px;color:#a4b1c8;white-space:pre-wrap;overflow-wrap:anywhere}.terminal-formulaire{display:flex;align-items:center;gap:10px}.terminal-formulaire label{color:var(--rouge)}.terminal-formulaire input{width:100%;min-width:0;padding:8px 0;border:0;outline:none;color:#f2f5fb;background:transparent}
+    .reveal{opacity:0;transform:translateY(18px);transition:opacity .65s ease,transform .65s ease}.reveal.visible{opacity:1;transform:translateY(0)}.notification{position:fixed;right:20px;bottom:20px;z-index:300;max-width:calc(100% - 40px);padding:13px 18px;border:1px solid var(--bordure);border-radius:8px;color:var(--texte);background:var(--carte);box-shadow:3px 3px 0 var(--ombre);opacity:0;transform:translateY(10px);pointer-events:none;transition:opacity .2s,transform .2s}.notification.visible{opacity:1;transform:translateY(0)}
+    @media(max-width:760px){.conteneur{width:min(100% - 30px,600px)}.barre-navigation{min-height:68px;gap:10px}.bouton-menu{display:block}.navigation{position:fixed;top:68px;left:0;right:0;display:flex;flex-direction:column;align-items:stretch;gap:0;padding:12px 20px 22px;border-bottom:1px solid var(--bordure);background:var(--fond);opacity:0;visibility:hidden;transform:translateY(-8px);transition:opacity .2s,transform .2s,visibility .2s}.navigation.ouverte{opacity:1;visibility:visible;transform:translateY(0)}.navigation a{padding:13px 5px;border-bottom:1px solid var(--bordure)}.navigation .lien-contact{margin-top:10px;text-align:center;border:1px solid var(--bordure)}.hero{min-height:auto;padding-block:90px 75px}section{padding-block:55px}.grille{grid-template-columns:1fr}.carte{padding:22px}.pied-contenu{flex-direction:column;align-items:flex-start}}
+    @media(max-width:420px){.conteneur{width:calc(100% - 24px)}.hero{padding-top:70px}.hero-actions{flex-direction:column}.hero-actions .btn{width:100%}.serveur-stats{grid-template-columns:1fr}.badge-statut{white-space:normal}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}}
+  </style>
+</head>
+<body>
+  <div class="fond-effets" aria-hidden="true"></div>
+  <header class="entete" id="entete"><div class="conteneur barre-navigation">
+    <a class="logo" href="#accueil" aria-label="Flyper, accueil"><span class="logo-icone"><img src="icon.png" alt="" width="42" height="42" onerror="this.parentNode.classList.add('sans-image');this.remove()"></span><span class="logo-texte">Flyper</span></a>
+    <nav class="navigation" id="navigation-principale" aria-label="Navigation principale"><a href="#accueil">Accueil</a><a href="#projets">Projets</a><a href="#apropos">À propos</a><a href="#minecraft">Serveur Minecraft</a><a class="lien-contact" href="#contact">Me contacter <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a></nav>
+    <div class="actions-navigation"><button class="bouton-theme" id="themeToggle" type="button" aria-label="Activer le thème clair" title="Activer le thème clair"><i class="fa-solid fa-sun" aria-hidden="true"></i></button>
+    <button class="bouton-menu" id="menuToggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="navigation-principale"><span></span><span></span><span></span></button></div>
+  </div></header>
+  <main>
+    <section class="hero" id="accueil"><div class="conteneur hero-contenu"><div class="surtitre"><span class="point-lumineux"></span>LA PARTIE WEB DE FLYPER</div><h1>Des idées, du code,<br><span class="texte-degrade">et du Minecraft.</span></h1><p class="hero-description">Flyper, c’est mon coin sur le web : j’y rassemble mes essais en développement, mes parties Minecraft et les projets que j’ai envie de faire grandir.</p><div class="hero-actions"><a class="btn btn-primary" href="#projets">Voir les projets <i class="fa-solid fa-arrow-down" aria-hidden="true"></i></a><a class="btn btn-secondaire" href="#apropos">À propos</a></div><p class="petite-note"><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i> En chantier, comme il se doit.</p></div></section>
+    <section id="apropos"><div class="conteneur"><div class="entete-section reveal"><p class="etiquette-section">À propos</p><h2>Ce qui m’intéresse<span class="texte-degrade">.</span></h2><p class="description-section">J’apprends en faisant : quelques lignes de code, des idées à tester et beaucoup de curiosité.</p></div><div class="grille">
+      <article class="carte reveal"><div class="carte-icone"><i class="fa-solid fa-lightbulb" aria-hidden="true"></i></div><h3>Comprendre</h3><p>J’aime savoir comment les outils et les sites fonctionnent, pas seulement les utiliser.</p></article>
+      <article class="carte reveal"><div class="carte-icone"><i class="fa-solid fa-laptop-code" aria-hidden="true"></i></div><h3>Apprendre le web</h3><p>HTML, CSS et JavaScript : j’expérimente avec les bases et je construis petit à petit.</p></article>
+      <article class="carte reveal"><div class="carte-icone"><i class="fa-solid fa-rocket" aria-hidden="true"></i></div><h3>Faire évoluer Flyper</h3><p>Le site changera au fil des nouvelles idées et des choses que je crée.</p></article>
+    </div></div></section>
+    <section id="projets"><div class="conteneur"><div class="entete-section reveal"><p class="etiquette-section">Ce que je construis</p><h2>Mes <span class="texte-degrade">projets</span></h2><p class="description-section">Découvre les projets qui composent l’univers Flyper.</p></div><div class="grille">
+      <article class="carte reveal"><div class="carte-icone"><i class="fa-solid fa-globe" aria-hidden="true"></i></div><h3>Ce site</h3><p>Une page pour rassembler mes projets, garder les infos utiles et essayer des choses en HTML, CSS et JavaScript.</p><div class="etiquettes"><span class="etiquette-tech">HTML</span><span class="etiquette-tech">CSS</span><span class="etiquette-tech">JavaScript</span></div><div style="margin-top:20px"><button class="btn btn-secondaire ouvrir-dialogue" type="button" data-dialog="webDialog">Voir les détails <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></button></div></article>
+      <article class="carte reveal"><div class="carte-icone"><i class="fa-solid fa-cube" aria-hidden="true"></i></div><h3>Serveur Minecraft</h3><p>Un serveur moddé pour jouer ensemble. L’adresse et les mods nécessaires sont juste en dessous.</p><div class="etiquettes"><span class="etiquette-tech">Minecraft</span><span class="etiquette-tech">NeoForge</span></div><div style="margin-top:20px"><button class="btn btn-secondaire ouvrir-dialogue" type="button" data-dialog="minecraftDialog">Voir les détails <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></button></div></article>
+      <article class="carte reveal"><div class="carte-icone"><i class="fa-solid fa-gamepad" aria-hidden="true"></i></div><h3>Jeux et lives</h3><p>Jeux vidéo, sessions en direct et découvertes partagées avec la communauté.</p><div class="etiquettes"><span class="etiquette-tech">Gaming</span><span class="etiquette-tech">Twitch</span></div><div style="margin-top:20px"><button class="btn btn-secondaire ouvrir-dialogue" type="button" data-dialog="gamingDialog">Voir les détails <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></button></div></article>
+    </div></div></section>
+    <section id="minecraft"><div class="conteneur"><div class="entete-section reveal"><p class="etiquette-section">Rejoins l’aventure</p><h2>Serveur <span class="texte-degrade">Minecraft</span></h2><p class="description-section">Retrouve ici les informations nécessaires pour rejoindre le serveur Flyper.</p></div>
+      <div class="carte reveal"><div class="carte-icone"><i class="fa-solid fa-cube" aria-hidden="true"></i></div><h3>Serveur Flyper</h3><p>Adresse du serveur : <strong style="color:var(--cyan);overflow-wrap:anywhere">flyper.falix.me</strong></p><p style="margin-top:8px">Version du modpack : <strong style="color:var(--texte)">NeoForge 26.1.2</strong></p><div style="margin-top:20px"><button class="btn btn-primary" id="copierAdresse" type="button"><i class="fa-solid fa-copy" aria-hidden="true"></i> Copier l’adresse du serveur</button></div><div class="serveur-details-statique" style="margin-top:24px;padding-top:20px;border-top:1px solid var(--bordure)"><p><strong style="color:var(--texte)">Mods nécessaires :</strong></p><div class="etiquettes"><span class="etiquette-tech">Shogi</span><span class="etiquette-tech">Waystones</span><span class="etiquette-tech">FerriteCore</span><span class="etiquette-tech">Xaero's World Map</span><span class="etiquette-tech">Xaero's Minimap</span><span class="etiquette-tech">Jade</span></div></div></div>
+    </div></section>
+    <section id="competences"><div class="conteneur"><div class="entete-section reveal"><p class="etiquette-section">Ce que je découvre</p><h2>Mes <span class="texte-degrade">centres d’intérêt</span></h2></div><div class="grille"><article class="carte reveal"><div class="carte-icone"><i class="fa-solid fa-code" aria-hidden="true"></i></div><h3>Développement web</h3><p>HTML, CSS, JavaScript et création de sites web.</p></article><article class="carte reveal"><div class="carte-icone"><i class="fa-solid fa-gamepad" aria-hidden="true"></i></div><h3>Gaming</h3><p>Minecraft, jeux vidéo et projets autour du gaming.</p></article><article class="carte reveal"><div class="carte-icone"><i class="fa-solid fa-robot" aria-hidden="true"></i></div><h3>Technologies</h3><p>Intelligence artificielle, outils numériques et découvertes.</p></article></div></div></section>
+    <section id="communaute"><div class="conteneur"><div class="entete-section reveal"><p class="etiquette-section">En direct</p><h2>Me retrouver sur <span class="texte-degrade">Twitch</span></h2><p class="description-section">Je partage ici les lives gaming et les parties du moment.</p></div><div class="grille" style="grid-template-columns:minmax(0,1fr)"><article class="carte reveal"><div class="carte-icone"><i class="fa-brands fa-twitch" aria-hidden="true"></i></div><h3>cosmo_snoopy</h3><p>La chaîne où se retrouvent les lives et les sessions de jeu.</p><div style="margin-top:20px"><a class="btn btn-primary" href="https://www.twitch.tv/cosmo_snoopy" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-twitch" aria-hidden="true"></i> Ouvrir la chaîne <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a></div></article></div></div></section>
+    <section id="terminal"><div class="conteneur"><div class="entete-section reveal"><p class="etiquette-section">Une petite surprise</p><h2>Terminal <span class="texte-degrade">Flyper</span></h2><p class="description-section">Écris une commande pour explorer les différentes parties du site.</p></div><div class="terminal reveal"><div class="terminal-barre"><span class="terminal-point"></span><span class="terminal-point"></span><span class="terminal-point"></span><span class="terminal-titre">flyper-terminal</span></div><div class="terminal-corps"><div class="terminal-ligne"><span class="terminal-prompt">flyper@site:~$</span> help</div><div class="terminal-sortie" id="terminalSortie">Commandes disponibles :
+help, projects, minecraft, about, community, contact, clear</div><form class="terminal-formulaire" id="terminalFormulaire"><label for="terminalCommande">flyper@site:~$</label><input id="terminalCommande" name="commande" type="text" placeholder="Tape une commande..." autocomplete="off" spellcheck="false" aria-label="Commande du terminal"></form></div></div></div></section>
+    <section id="contact"><div class="conteneur"><div class="contact-carte reveal"><p class="etiquette-section">Une question ou une idée ?</p><h2>On <span class="texte-degrade">reste en contact</span></h2><p>Tu souhaites parler d’un projet, du serveur Minecraft ou simplement me contacter ? Tu peux m’envoyer un e-mail.</p><a class="contact-email" href="mailto:projets.flyper.23565@gmail.com">projets.flyper.23565@gmail.com</a><div><a class="btn btn-primary" href="mailto:projets.flyper.23565@gmail.com"><i class="fa-solid fa-envelope" aria-hidden="true"></i> M’envoyer un e-mail</a></div></div></div></section>
+  </main>
+  <dialog class="dialogue-projet" id="webDialog" aria-labelledby="webDialogTitle">
+    <div class="dialogue-contenu">
+      <button class="fermer-dialogue" type="button" aria-label="Fermer la fenêtre"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+      <div class="dialogue-entete"><div class="dialogue-icone"><i class="fa-solid fa-globe" aria-hidden="true"></i></div><div><p class="etiquette-section">PROJET WEB</p><h2 id="webDialogTitle">Le site <span class="texte-degrade">Flyper</span></h2></div></div>
+      <p>Le site sert de point de départ pour mes projets web et les informations du serveur.</p>
+      <div class="dialogue-separateur"></div>
+      <div class="dialogue-liste">
+        <div class="dialogue-ligne"><span><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i></span><span><strong>Un site qui évolue</strong><br>La présentation change à mesure que j’apprends et que j’ajoute des projets.</span></div>
+        <div class="dialogue-ligne"><span><i class="fa-solid fa-code" aria-hidden="true"></i></span><span><strong>Technologies</strong><br>HTML, CSS et JavaScript pour construire une expérience interactive.</span></div>
+        <div class="dialogue-ligne"><span><i class="fa-solid fa-arrow-trend-up" aria-hidden="true"></i></span><span><strong>En évolution</strong><br>Le site continuera de s’enrichir avec de nouveaux projets.</span></div>
+      </div>
+      <div class="dialogue-actions"><button class="btn btn-primary fermer-dialogue" type="button">Compris, merci !</button></div>
+    </div>
+  </dialog>
+
+  <dialog class="dialogue-projet" id="minecraftDialog" aria-labelledby="minecraftDialogTitle">
+    <div class="dialogue-contenu">
+      <button class="fermer-dialogue" type="button" aria-label="Fermer la fenêtre"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+      <div class="dialogue-entete"><div class="dialogue-icone"><i class="fa-solid fa-cube" aria-hidden="true"></i></div><div><p class="etiquette-section">MINECRAFT MODDÉ</p><h2 id="minecraftDialogTitle">Serveur <span class="texte-degrade">Flyper</span></h2></div></div>
+      <p>Une aventure Minecraft modifiée à partager avec la communauté.</p>
+      <div class="dialogue-separateur"></div>
+      <div class="dialogue-liste">
+        <div class="dialogue-ligne"><span><i class="fa-solid fa-server" aria-hidden="true"></i></span><span><strong>Adresse du serveur</strong><br>flyper.falix.me</span></div>
+        <div class="dialogue-ligne"><span><i class="fa-solid fa-gear" aria-hidden="true"></i></span><span><strong>Version indiquée</strong><br>NeoForge 26.1.2</span></div>
+        <div class="dialogue-ligne"><span><i class="fa-solid fa-puzzle-piece" aria-hidden="true"></i></span><span><strong>Mods requis</strong><br>Shogi, Waystones, FerriteCore, Xaero's World Map, Xaero's Minimap et Jade.</span></div>
+      </div>
+      <div class="dialogue-actions"><button class="btn btn-primary" id="copierAdresseDialogue" type="button"><i class="fa-solid fa-copy" aria-hidden="true"></i> Copier l’adresse</button><button class="btn btn-secondaire fermer-dialogue" type="button">Fermer</button></div>
+    </div>
+  </dialog>
+
+  <dialog class="dialogue-projet" id="gamingDialog" aria-labelledby="gamingDialogTitle">
+    <div class="dialogue-contenu">
+      <button class="fermer-dialogue" type="button" aria-label="Fermer la fenêtre"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+      <div class="dialogue-entete"><div class="dialogue-icone"><i class="fa-solid fa-gamepad" aria-hidden="true"></i></div><div><p class="etiquette-section">JEUX VIDÉO</p><h2 id="gamingDialogTitle">Univers <span class="texte-degrade">gaming</span></h2></div></div>
+      <p>Une place pour les jeux vidéo, les découvertes et les aventures avec la communauté Flyper.</p>
+      <div class="dialogue-separateur"></div>
+      <div class="dialogue-liste">
+        <div class="dialogue-ligne"><span><i class="fa-solid fa-compass" aria-hidden="true"></i></span><span><strong>Découvertes</strong><br>Des jeux et des expériences à explorer.</span></div>
+        <div class="dialogue-ligne"><span><i class="fa-solid fa-users" aria-hidden="true"></i></span><span><strong>Communauté</strong><br>Partager les aventures et les moments de jeu.</span></div>
+        <div class="dialogue-ligne"><span><i class="fa-solid fa-arrow-trend-up" aria-hidden="true"></i></span><span><strong>À venir</strong><br>Cette partie pourra évoluer avec les prochains projets.</span></div>
+      </div>
+      <div class="dialogue-actions"><button class="btn btn-primary fermer-dialogue" type="button">Compris, merci !</button></div>
+    </div>
+  </dialog>
+
+  <footer><div class="conteneur pied-contenu"><p>© <span id="annee"></span> Flyper — Inspiré du projet Adist.</p><a href="#accueil">Retour en haut <i class="fa-solid fa-arrow-up" aria-hidden="true"></i></a></div></footer>
+  <div class="notification" id="notification" role="status" aria-live="polite"></div>
+  <script>
+    "use strict";
+
+    const boutonTheme = document.getElementById("themeToggle");
+    const iconeTheme = boutonTheme.querySelector("i");
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    let themeEnregistre;
+    try{themeEnregistre=localStorage.getItem("flyper-theme")}catch{}
+    if(themeEnregistre==="light")document.documentElement.dataset.theme="light";
+    function actualiserBoutonTheme(){const themeClair=document.documentElement.dataset.theme==="light";const action=themeClair?"sombre":"clair";boutonTheme.setAttribute("aria-label","Activer le thème "+action);boutonTheme.title="Activer le thème "+action;iconeTheme.className="fa-solid "+(themeClair?"fa-moon":"fa-sun");metaTheme.content=themeClair?"#eef3fc":"#0b1020"}
+    actualiserBoutonTheme();
+    boutonTheme.addEventListener("click",()=>{const themeClair=document.documentElement.dataset.theme!=="light";document.documentElement.dataset.theme=themeClair?"light":"dark";try{localStorage.setItem("flyper-theme",themeClair?"light":"dark")}catch{}actualiserBoutonTheme()});
+
+    const adresseMinecraft = "flyper.falix.me";
+    const versionMinecraft = "NeoForge 26.1.2";
+
+    const boutonMenu = document.getElementById("menuToggle");
+    const navigation = document.getElementById("navigation-principale");
+    function fermerMenu(){boutonMenu.setAttribute("aria-expanded","false");boutonMenu.setAttribute("aria-label","Ouvrir le menu");navigation.classList.remove("ouverte");document.body.classList.remove("menu-ouvert")}
+    boutonMenu.addEventListener("click",()=>{const ouvert=boutonMenu.getAttribute("aria-expanded")==="true";boutonMenu.setAttribute("aria-expanded",String(!ouvert));boutonMenu.setAttribute("aria-label",ouvert?"Ouvrir le menu":"Fermer le menu");navigation.classList.toggle("ouverte",!ouvert);document.body.classList.toggle("menu-ouvert",!ouvert)});
+    navigation.querySelectorAll("a").forEach(lien=>lien.addEventListener("click",fermerMenu));document.addEventListener("keydown",event=>{if(event.key==="Escape")fermerMenu()});window.addEventListener("resize",()=>{if(window.innerWidth>760)fermerMenu()});
+
+    const entete=document.getElementById("entete");function mettreAJourEntete(){entete.classList.toggle("defile",window.scrollY>10)}window.addEventListener("scroll",mettreAJourEntete,{passive:true});mettreAJourEntete();
+    const elementsReveal=document.querySelectorAll(".reveal");if("IntersectionObserver" in window){const observateur=new IntersectionObserver((entrees,observer)=>{entrees.forEach(entree=>{if(entree.isIntersecting){entree.target.classList.add("visible");observer.unobserve(entree.target)}})},{threshold:.12});elementsReveal.forEach(element=>observateur.observe(element))}else{elementsReveal.forEach(element=>element.classList.add("visible"))}
+
+    const notification=document.getElementById("notification");let minuteurNotification;function afficherNotification(message){notification.textContent=message;notification.classList.add("visible");clearTimeout(minuteurNotification);minuteurNotification=setTimeout(()=>notification.classList.remove("visible"),2800)}
+
+    const boutonCopier=document.getElementById("copierAdresse");
+    if(boutonCopier){boutonCopier.addEventListener("click",async()=>{try{await navigator.clipboard.writeText(adresseMinecraft);afficherNotification("Adresse Minecraft copiée !")}catch{afficherNotification("Adresse : "+adresseMinecraft)}})}
+
+    document.querySelectorAll("[data-dialog]").forEach((bouton) => {
+      bouton.addEventListener("click", () => {
+        const dialogue = document.getElementById(bouton.dataset.dialog);
+        if (dialogue && typeof dialogue.showModal === "function") dialogue.showModal();
+      });
+    });
+
+    document.querySelectorAll(".dialogue-projet").forEach((dialogue) => {
+      dialogue.querySelectorAll(".fermer-dialogue").forEach((bouton) => {
+        bouton.addEventListener("click", () => dialogue.close());
+      });
+      dialogue.addEventListener("click", (event) => {
+        if (event.target === dialogue) dialogue.close();
+      });
+    });
+    document.getElementById("copierAdresseDialogue").addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText("flyper.falix.me");
+        afficherNotification("Adresse Minecraft copiée !");
+      } catch {
+        afficherNotification("Adresse : flyper.falix.me");
+      }
+    });
+
+    const terminalFormulaire=document.getElementById("terminalFormulaire");
+    const terminalCommande=document.getElementById("terminalCommande");
+    const terminalSortie=document.getElementById("terminalSortie");
+    const commandes={help:"Commandes disponibles :\nhelp, projects, minecraft, about, community, contact, clear",projects:"Mes projets : mon site Flyper, mon serveur Minecraft et de futures créations.",minecraft:"Serveur Minecraft : "+adresseMinecraft+"\nTu peux retrouver l’adresse dans la section Serveur Minecraft.",about:"Flyper explore le web, le gaming et les nouvelles technologies.",community:"Retrouve les aventures Flyper sur Twitch. Le lien se trouve dans la section Communauté.",contact:"Contact : projets.flyper.23565@gmail.com"};
+    terminalFormulaire.addEventListener("submit",event=>{event.preventDefault();const commande=terminalCommande.value.trim().toLowerCase();if(!commande)return;if(commande==="clear"){terminalSortie.textContent="";terminalCommande.value="";return}terminalSortie.textContent=commandes[commande]||`Commande inconnue : "${commande}". Tape help pour voir les commandes.`;terminalCommande.value=""});
+    document.getElementById("annee").textContent=new Date().getFullYear();
+  </script>
+</body>
+</html>
