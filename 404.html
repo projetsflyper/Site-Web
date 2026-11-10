@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#0b1020">
+  <title>Page introuvable — Flyper</title>
+  <!-- Chemins commençant par "/" : la page 404 peut s'afficher depuis n'importe quelle adresse du site. -->
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    .page-404{min-height:100vh;display:grid;place-items:center;padding:40px 20px;text-align:center}
+    .page-404-contenu{max-width:620px}
+    .page-404 img{display:block;width:84px;height:84px;margin:0 auto 18px;object-fit:contain}
+    .code-404{font-size:clamp(5.5rem,24vw,11rem);line-height:1;font-weight:850;letter-spacing:0;color:var(--bleu)}
+    .page-404 h1{max-width:none;margin:14px 0 12px;font-size:clamp(1.7rem,5vw,2.4rem);line-height:1.2}
+    .page-404 p{color:var(--secondaire)}
+    .page-404-terminal{margin:26px auto 0;padding:14px 18px;max-width:100%;overflow-wrap:anywhere;text-align:left;border:1px solid var(--bordure);border-radius:var(--rayon);background:#101a2d;color:#a4b1c8;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.88rem}
+    .page-404-terminal .terminal-prompt{color:var(--rouge)}
+    .page-404 .hero-actions{justify-content:center}
+  </style>
+</head>
+<body>
+  <main class="page-404">
+    <div class="page-404-contenu">
+      <img src="/icon.png" alt="Logo Flyper" width="84" height="84">
+      <div class="code-404" aria-hidden="true">404</div>
+      <h1>Cette page est introuvable.</h1>
+      <p>Le lien est peut-être incorrect, ou la page a été déplacée ou supprimée.</p>
+      <div class="page-404-terminal" aria-hidden="true"><span class="terminal-prompt">flyper@site:~$</span> cd page-introuvable<br>bash: cd: page-introuvable: Aucun fichier ou dossier de ce nom</div>
+      <div class="hero-actions"><a class="btn btn-primary" href="/">Retour à l’accueil</a><a class="btn btn-secondaire" href="/#projets">Voir les projets</a></div>
+    </div>
+  </main>
+  <script>
+    /* Reprend le thème clair/sombre choisi par le visiteur sur le site. */
+    try { if (localStorage.getItem("flyper-theme") === "light") document.documentElement.dataset.theme = "light"; } catch {}
+  </script>
+</body>
+</html>
